@@ -1,0 +1,2959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SignalTwin</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
+scroll-behavior:smooth;
+}
+
+/* COLORS */
+
+:root{
+--primary:#4F46E5;
+--secondary:#7C3AED;
+--accent:#EC4899;
+--text:#0F172A;
+--bg:#F8FAFC;
+}
+
+/* HERO */
+
+.hero{
+padding:160px 8%;
+background:var(--bg);
+}
+
+.hero-container{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+.hero h1{
+font-size:44px;
+color:var(--text);
+margin-bottom:20px;
+}
+
+.hero p{
+color:#555;
+line-height:1.7;
+margin-bottom:25px;
+}
+
+.hero-buttons{
+display:flex;
+gap:15px;
+}
+
+.btn{
+padding:12px 24px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+}
+
+.btn-primary{
+background:var(--primary);
+color:white;
+}
+
+.btn-secondary{
+border:1px solid var(--primary);
+color:var(--primary);
+}
+
+.hero img{
+width:100%;
+}
+
+/* PLATFORM */
+
+.platform{
+padding:120px 8%;
+background:white;
+}
+
+.section-title{
+text-align:center;
+font-size:34px;
+margin-bottom:10px;
+}
+
+.section-sub{
+text-align:center;
+color:#666;
+margin-bottom:50px;
+}
+
+.platform-grid{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+.platform-card{
+background:#f9fafb;
+padding:25px;
+border-radius:10px;
+text-align:center;
+transition:.3s;
+}
+
+.platform-card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.platform-img{
+width:100%;
+height:160px;
+object-fit:contain;
+margin-bottom:15px;
+}
+
+/* PROCESS */
+
+.process{
+padding:120px 8%;
+background:#f9fafb;
+}
+
+.process-grid{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:30px;
+text-align:center;
+}
+
+.process img{
+width:100%;
+height:150px;
+object-fit:contain;
+margin-bottom:10px;
+}
+
+/* PRICING */
+
+.pricing{
+padding:120px 8%;
+background:white;
+}
+
+.pricing-grid{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+.price-card{
+border:1px solid #eee;
+padding:35px;
+border-radius:10px;
+text-align:center;
+}
+
+.price-card h3{
+margin-bottom:10px;
+}
+
+.price-card ul{
+list-style:none;
+margin:20px 0;
+}
+
+.price-card li{
+margin:8px 0;
+color:#555;
+}
+
+/* FAQ */
+
+.faq{
+padding:120px 8%;
+background:black;
+color:white;
+}
+
+.faq-container{
+max-width:800px;
+margin:auto;
+}
+
+.faq-item{
+border-bottom:1px solid #333;
+padding:18px 0;
+}
+
+.faq-question{
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+}
+
+.faq-answer{
+display:none;
+color:#ccc;
+margin-top:8px;
+}
+
+/* CONTACT */
+
+.contact{
+padding:120px 8%;
+background:white;
+}
+
+.contact-container{
+max-width:1000px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+}
+
+.contact input,
+.contact textarea{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+/* FOOTER */
+
+.footer{
+background:#111;
+color:#aaa;
+padding:20px;
+text-align:center;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.nav-links{
+display:none;
+position:absolute;
+top:60px;
+left:0;
+width:100%;
+background:white;
+flex-direction:column;
+padding:20px;
+}
+
+.menu-btn{
+display:block;
+}
+
+.hero-container,
+.platform-grid,
+.process-grid,
+.pricing-grid,
+.contact-container{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+<div class="nav-container">
+
+<div class="logo">SignalTwin</div>
+
+<div class="nav-links" id="navLinks">
+
+<a href="#home">Home</a>
+<a href="#platform">Platform</a>
+<a href="#process">How It Works</a>
+<a href="#pricing">Pricing</a>
+<a href="#faq">FAQ</a>
+<a href="#contact">Contact</a>
+
+</div>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+</div>
+
+</header>
+<header class="navbar">
+
+<div class="nav-container">
+
+<div class="logo">SignalTwin</div>
+
+<nav id="navMenu">
+
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#process">Process</a>
+<a href="#platform">Platform</a>
+<a href="#pricing">Pricing</a>
+<a href="#faq">FAQ</a>
+<a href="#contact">Contact</a>
+
+</nav>
+
+<div class="menu-toggle" id="menuToggle">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+</div>
+
+</header>
+
+
+
+<style>
+
+/* NAVBAR */
+
+.navbar{
+width:100%;
+background:#153E8C;
+padding:11px 8%;
+position:fixed;
+top:0;
+left:0;
+z-index:1000;
+font-family:'Segoe UI',sans-serif;
+box-shadow:0 3px 15px rgba(0,0,0,0.15);
+}
+
+/* CONTAINER */
+
+.nav-container{
+max-width:1200px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+/* LOGO */
+
+.logo{
+font-size:22px;
+font-weight:700;
+color:rgb(255, 255, 255);
+}
+
+/* NAV LINKS */
+
+#navMenu{
+display:flex;
+gap:35px;
+align-items:center;
+}
+
+/* LINKS */
+
+#navMenu a{
+text-decoration:none;
+color:white;
+font-size:15px;
+font-weight:500;
+position:relative;
+}
+
+/* HOVER UNDERLINE */
+
+#navMenu a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-5px;
+width:0%;
+height:2px;
+background:rgb(255, 255, 255);
+transition:0.3s;
+}
+
+#navMenu a:hover::after{
+width:100%;
+}
+
+/* HAMBURGER */
+
+.menu-toggle{
+display:none;
+flex-direction:column;
+gap:5px;
+cursor:pointer;
+}
+
+.menu-toggle span{
+width:25px;
+height:3px;
+background:white;
+display:block;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+#navMenu{
+position:absolute;
+top:70px;
+left:0;
+width:100%;
+background:#153E8C;
+flex-direction:column;
+padding:25px 0;
+gap:20px;
+display:none;
+}
+
+#navMenu.active{
+display:flex;
+}
+
+.menu-toggle{
+display:flex;
+}
+
+}
+
+</style>
+
+
+
+<script>
+
+const toggle = document.getElementById("menuToggle");
+const menu = document.getElementById("navMenu");
+
+/* OPEN CLOSE MENU */
+
+toggle.addEventListener("click",()=>{
+menu.classList.toggle("active");
+});
+
+/* CLOSE MENU WHEN LINK CLICKED */
+
+document.querySelectorAll("#navMenu a").forEach(link=>{
+
+link.addEventListener("click",()=>{
+
+menu.classList.remove("active");
+
+});
+
+});
+
+/* SMOOTH SCROLL */
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+
+anchor.addEventListener("click",function(e){
+
+e.preventDefault();
+
+document.querySelector(this.getAttribute("href")).scrollIntoView({
+behavior:"smooth"
+});
+
+});
+
+});
+
+</script>
+<!-- HERO SECTION START -->
+
+<section class="hero-section" id="home">
+
+<div class="hero-container">
+
+<!-- LEFT -->
+
+<div class="hero-left">
+
+<h1>Predict Your Marketing Results Before You Spend a Single Pound</h1>
+
+<div class="hero-divider"></div>
+
+<p class="hero-text">
+SignalTwin is an AI powered Pre Spend Digital Twin platform built for modern businesses.
+
+Instead of launching campaigns and hoping for results, SignalTwin simulates customer journeys, 
+detects risks, and predicts performance before any budget is spent helping teams reduce waste, 
+improve conversions, and make smarter marketing decisions with confidence.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#platform" class="btn-primary">Explore Platform</a>
+<a href="#contact" class="btn-secondary">Request Demo</a>
+
+</div>
+
+</div>
+
+
+<!-- RIGHT -->
+
+<div class="hero-right">
+
+<img src="si.png" alt="SignalTwin Dashboard">
+
+</div>
+
+</div>
+
+</section>
+
+
+<style>
+
+/* HERO */
+
+.hero-section{
+position:relative;
+padding:120px 8%;
+background:white;
+font-family:'Segoe UI',sans-serif;
+overflow:hidden;
+}
+
+/* SHAPES (BLUE THEME) */
+
+.hero-section::before{
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:220px;
+height:220px;
+background:#ffffff; /* blue */
+clip-path:polygon(100% 0, 0 0, 100% 100%);
+}
+
+.hero-section::after{
+content:"";
+position:absolute;
+bottom:0;
+left:0;
+width:240px;
+height:240px;
+background:#ffffff; /* dark blue */
+clip-path:polygon(0 100%, 0 0, 100% 100%);
+}
+
+/* CONTAINER */
+
+.hero-container{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+position:relative;
+z-index:2;
+}
+
+/* LEFT */
+
+.hero-left h1{
+font-size:48px;
+color:#153E8C;
+line-height:1.2;
+}
+
+/* DIVIDER */
+
+.hero-divider{
+width:70px;
+height:3px;
+margin:15px 0 20px;
+border-radius:3px;
+background:#153E8C;
+}
+
+/* TEXT */
+
+.hero-text{
+color:#444;
+font-size:17px;
+line-height:1.8;
+margin-bottom:30px;
+max-width:520px;
+}
+
+/* BUTTONS */
+
+.hero-buttons{
+display:flex;
+gap:15px;
+}
+
+/* PRIMARY */
+
+.btn-primary{
+background:#153E8C;
+color:white;
+padding:14px 28px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+.btn-primary:hover{
+transform:translateY(-2px);
+}
+
+/* SECONDARY */
+
+.btn-secondary{
+border:2px solid #153E8C;
+color:#153E8C;
+padding:14px 28px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+.btn-secondary:hover{
+background:#153E8C;
+color:white;
+}
+
+/* IMAGE */
+
+.hero-right img{
+width:100%;
+border-radius:12px;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+@media(max-width:900px){
+
+/* SECTION SPACING */
+.hero-section{
+padding:70px 20px;
+}
+
+/* STACK LAYOUT */
+.hero-container{
+grid-template-columns:1fr;
+gap:30px;
+text-align:center;
+}
+
+/* HEADLINE (BETTER READABILITY) */
+.hero-left h1{
+font-size:28px;
+line-height:1.3;
+letter-spacing:-0.3px;
+padding:0 5px;
+}
+
+/* DIVIDER CENTER */
+.hero-divider{
+margin:12px auto 18px;
+width:50px;
+height:2px;
+}
+
+/* TEXT IMPROVEMENT */
+.hero-text{
+margin:auto;
+font-size:15px;
+line-height:1.7;
+max-width:100%;
+padding:0 10px;
+}
+
+/* BUTTONS UX FIX */
+.hero-buttons{
+justify-content:center;
+flex-direction:column;
+gap:12px;
+margin-top:10px;
+}
+
+/* FULL WIDTH BUTTONS */
+.btn-primary,
+.btn-secondary{
+width:100%;
+max-width:260px;
+margin:auto;
+padding:13px;
+font-size:14px;
+}
+
+/* IMAGE OPTIMIZATION */
+.hero-right{
+margin-top:10px;
+}
+
+.hero-right img{
+width:100%;
+max-width:320px;
+margin:auto;
+border-radius:10px;
+}
+
+/* REMOVE UNUSED SHAPES FOR CLEAN LOOK */
+.hero-section::before,
+.hero-section::after{
+display:none;
+}
+
+}
+
+</style>
+
+
+<script>
+
+/* SMOOTH SCROLL */
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+anchor.addEventListener("click", function(e) {
+
+e.preventDefault();
+
+document.querySelector(this.getAttribute("href")).scrollIntoView({
+behavior:"smooth"
+});
+
+});
+
+});
+
+</script>
+
+<!-- HERO SECTION END -->
+<!-- ABOUT SECTION START -->
+
+<section class="about-section" id="about">  
+
+<div class="about-container">
+
+<!-- LEFT CONTENT -->
+
+<div class="about-left">
+
+<h2>About SignalTwin</h2>
+
+<div class="about-divider"></div>
+
+<p>
+SignalTwin is an AI powered Pre-Spend Digital Twin platform designed to help 
+UK SMEs simulate marketing outcomes before committing budget.
+</p>
+
+<p>
+Unlike traditional analytics tools that provide delayed insights, SignalTwin 
+acts as a predictive decision engine identifying risks, inefficiencies, and 
+conversion barriers before campaigns go live.
+</p>
+
+<p>
+By combining synthetic customer journey simulation, multiagent AI analysis, 
+and real-time scoring, SignalTwin transforms marketing from a high risk 
+experiment into a predictable and scalable growth process.
+</p>
+
+<div class="about-features">
+
+<div class="feature">Pre Spend Simulation</div>
+<div class="feature">SignalScore Prediction</div>
+<div class="feature">AI Risk Analysis</div>
+<div class="feature">Scenario Testing</div>
+
+</div>
+
+</div>
+
+
+<!-- RIGHT SIDE -->
+
+<div class="about-right">
+
+<div class="founder-box">
+
+<h3 class="founder-title">Founder</h3>
+
+<div class="founder-divider"></div>
+
+<p>
+<strong>Hitesh Hans</strong> is the Founder & CEO of SignalTwin, with a background 
+in digital advertising operations and campaign strategy.
+</p>
+
+<p>
+With hands on experience in Google Campaign Manager and Ad Operations, he 
+identified a critical gap businesses were spending budgets without knowing 
+what would actually work.
+</p>
+
+<p>
+SignalTwin was built to bridge this gap by providing SMEs with predictive 
+decision intelligence, enabling smarter investments and reducing acquisition waste.
+</p>
+
+<a href="#" class="linkedin-btn">
+LinkedIn
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<style>
+
+/* SECTION */
+.about-section{
+padding:140px 8%;
+background:linear-gradient(135deg,#0B1E3F,#153E8C);
+font-family:'Segoe UI',sans-serif;
+}
+
+/* CONTAINER */
+.about-container{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:1.3fr 1fr;
+gap:80px;
+align-items:center;
+}
+
+/* LEFT */
+.about-left h2{
+font-size:42px;
+margin-bottom:10px;
+color:white;
+}
+
+/* DIVIDER */
+.about-divider{
+width:80px;
+height:3px;
+margin:12px 0 25px;
+background:white;
+opacity:0.6;
+}
+
+/* TEXT */
+.about-left p{
+color:#e6ebff;
+line-height:1.8;
+margin-bottom:20px;
+font-size:16px;
+max-width:520px;
+}
+
+/* FEATURES */
+.about-features{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.feature{
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.2);
+color:white;
+padding:10px 14px;
+border-radius:6px;
+font-size:14px;
+font-weight:600;
+}
+
+/* FOUNDER BOX */
+.founder-box{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.2);
+padding:35px;
+border-radius:12px;
+backdrop-filter:blur(10px);
+box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+.founder-title{
+margin-bottom:5px;
+color:white;
+}
+
+/* DIVIDER */
+.founder-divider{
+width:60px;
+height:3px;
+margin-bottom:15px;
+background:white;
+opacity:0.6;
+}
+
+/* TEXT */
+.founder-box p{
+color:#e0e6ff;
+line-height:1.7;
+margin-bottom:18px;
+}
+
+/* BUTTON */
+.linkedin-btn{
+display:inline-block;
+padding:10px 18px;
+background:white;
+color:#153E8C;
+text-decoration:none;
+border-radius:6px;
+font-weight:600;
+}
+
+@media(max-width:900px){
+
+/* SECTION SPACING */
+.about-section{
+padding:70px 20px;
+}
+
+/* STACK LAYOUT */
+.about-container{
+grid-template-columns:1fr;
+gap:35px;
+text-align:center;
+}
+
+/* TITLE IMPROVEMENT */
+.about-left h2{
+font-size:28px;
+line-height:1.3;
+letter-spacing:-0.3px;
+}
+
+/* DIVIDER CENTER */
+.about-divider{
+margin:10px auto 18px;
+width:50px;
+height:2px;
+}
+
+/* TEXT READABILITY */
+.about-left p{
+margin:auto;
+font-size:15px;
+line-height:1.7;
+max-width:100%;
+padding:0 10px;
+}
+
+/* FEATURES → CLEAN STACK */
+.about-features{
+grid-template-columns:1fr;
+gap:10px;
+max-width:280px;
+margin:20px auto 0;
+}
+
+/* FEATURE CARD POLISH */
+.feature{
+padding:10px;
+font-size:13px;
+border-radius:5px;
+}
+
+/* FOUNDER BOX */
+.founder-box{
+padding:25px;
+margin-top:10px;
+text-align:center;
+}
+
+/* FOUNDER DIVIDER */
+.founder-divider{
+margin:10px auto 16px;
+width:45px;
+height:2px;
+}
+
+/* FOUNDER TEXT */
+.founder-box p{
+font-size:14px;
+line-height:1.7;
+}
+
+/* BUTTON UX */
+.linkedin-btn{
+width:100%;
+max-width:220px;
+margin:auto;
+padding:12px;
+font-size:14px;
+}
+
+/* REMOVE EXTRA WIDTH ISSUES */
+.about-left,
+.about-right{
+width:100%;
+}
+
+/* BETTER VISUAL BALANCE */
+.about-right{
+display:flex;
+justify-content:center;
+}
+
+}
+</style>
+
+<!-- ABOUT SECTION END -->
+
+<!-- PROCESS SECTION START -->
+
+<section class="process-section" id="process">
+
+<div class="process-container">
+
+<h2 class="process-title">How SignalTwin Works</h2>
+
+<div class="process-divider"></div>
+
+<p class="process-sub">
+SignalTwin transforms marketing decision making from spend and learn to a 
+predictive simulate then spend approach using AI-powered digital twin technology.
+</p>
+
+
+<div class="process-grid">
+
+<!-- STEP 1 -->
+<div class="process-card">
+
+<img src="si1.png" class="process-img">
+
+<div class="step">01</div>
+
+<h3>Input & Funnel Creation</h3>
+
+<p>
+Businesses provide campaign inputs such as ad copy, landing pages, and audience 
+targeting. SignalTwin converts this into a structured Funnel Twin model for analysis.
+</p>
+
+</div>
+
+
+<!-- STEP 2 -->
+<div class="process-card">
+
+<img src="si2.png" class="process-img">
+
+<div class="step">02</div>
+
+<h3>Simulation Engine</h3>
+
+<p>
+The platform runs thousands of synthetic customer journeys using AI to simulate how 
+users interact with the funnel, identifying drop offs and potential failure points.
+</p>
+
+</div>
+
+
+<!-- STEP 3 -->
+<div class="process-card">
+
+<img src="si3.png" class="process-img">
+
+<div class="step">03</div>
+
+<h3>AI Risk & Performance Analysis</h3>
+
+<p>
+Multi-agent AI (MACE) evaluates audience intent, creative quality, and funnel 
+performance to generate a predictive “SignalScore” and risk insights.
+</p>
+
+</div>
+
+
+<!-- STEP 4 -->
+<div class="process-card">
+
+<img src="si4.png" class="process-img">
+
+<div class="step">04</div>
+
+<h3>Actionable Strategy Output</h3>
+
+<p>
+SignalTwin provides clear recommendations on what to fix before launch, enabling 
+businesses to optimise campaigns and confidently invest budget.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<style>
+
+/* SECTION */
+.process-section{
+position:relative;
+padding:120px 8%;
+background:white;
+font-family:'Segoe UI',sans-serif;
+text-align:center;
+overflow:hidden;
+}
+
+/* BRAND SHAPES */
+.process-section::before{
+content:"";
+position:absolute;
+top:0;
+right:0;
+width:200px;
+height:200px;
+background:#153E8C;
+clip-path:polygon(100% 0, 0 0, 100% 100%);
+}
+
+.process-section::after{
+content:"";
+position:absolute;
+bottom:0;
+left:0;
+width:220px;
+height:220px;
+background:#0B1E3F;
+clip-path:polygon(0 100%, 0 0, 100% 100%);
+}
+
+/* CONTAINER */
+.process-container{
+max-width:1200px;
+margin:auto;
+position:relative;
+z-index:2;
+}
+
+/* TITLE */
+.process-title{
+font-size:40px;
+color:#0B1E3F;
+margin-bottom:10px;
+}
+
+/* DIVIDER */
+.process-divider{
+width:80px;
+height:3px;
+margin:10px auto 25px;
+background:#153E8C;
+}
+
+/* SUBTEXT */
+.process-sub{
+max-width:650px;
+margin:auto;
+margin-bottom:60px;
+color:#333;
+line-height:1.7;
+}
+
+/* GRID */
+.process-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:30px;
+}
+
+/* CARD */
+.process-card{
+background:white;
+padding:25px;
+border-radius:12px;
+border:1px solid #eee;
+border-top:4px solid #153E8C;
+text-align:left;
+transition:0.35s;
+}
+
+.process-card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* IMAGE */
+.process-img{
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+/* STEP */
+.step{
+display:inline-block;
+background:#153E8C;
+color:white;
+font-size:13px;
+font-weight:700;
+padding:6px 14px;
+border-radius:4px;
+margin-bottom:12px;
+}
+
+/* TITLE */
+.process-card h3{
+margin-bottom:10px;
+color:#0B1E3F;
+font-size:18px;
+}
+
+/* TEXT */
+.process-card p{
+color:#555;
+font-size:14px;
+line-height:1.6;
+}
+
+@media(max-width:900px){
+
+/* SECTION SPACING */
+.process-section{
+padding:70px 20px;
+text-align:center;
+}
+
+/* REMOVE SHAPES FOR CLEAN MOBILE UI */
+.process-section::before,
+.process-section::after{
+display:none;
+}
+
+/* TITLE */
+.process-title{
+font-size:28px;
+line-height:1.3;
+letter-spacing:-0.3px;
+}
+
+/* DIVIDER */
+.process-divider{
+width:50px;
+height:2px;
+margin:10px auto 18px;
+}
+
+/* SUBTEXT */
+.process-sub{
+font-size:15px;
+line-height:1.7;
+margin-bottom:35px;
+padding:0 10px;
+}
+
+/* GRID → SINGLE COLUMN */
+.process-grid{
+grid-template-columns:1fr;
+gap:20px;
+}
+
+/* CARD */
+.process-card{
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+/* IMAGE */
+.process-img{
+height:140px;
+border-radius:8px;
+}
+
+/* STEP BADGE */
+.step{
+font-size:12px;
+padding:5px 12px;
+margin-bottom:10px;
+}
+
+/* TITLE */
+.process-card h3{
+font-size:16px;
+margin-bottom:8px;
+}
+
+/* TEXT */
+.process-card p{
+font-size:14px;
+line-height:1.7;
+}
+
+/* CENTER CONTENT */
+.process-card{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* LIMIT CARD WIDTH FOR BETTER READABILITY */
+.process-card{
+max-width:320px;
+margin:auto;
+}
+
+}
+</style>
+
+<!-- PROCESS SECTION END -->
+<!-- PLATFORM SECTION START -->    
+
+<section class="platform-section" id="platform">    
+
+<div class="platform-container">    
+
+<h2 class="platform-title">SignalTwin Platform</h2>    
+
+<div class="platform-divider"></div>    
+
+<p class="platform-sub">    
+SignalTwin is an AI-powered "Pre-Spend Digital Twin" platform that allows businesses 
+to simulate marketing outcomes before spending reducing risk and improving ROI.    
+</p>    
+
+
+<div class="platform-grid">    
+
+<!-- CARD 1 -->    
+<div class="platform-card">    
+
+<img src="si5.png" class="platform-img">    
+
+<h3>Funnel Twin Builder</h3>    
+
+<p class="short-text">    
+Turn ideas into structured strategy.    
+</p>    
+
+<p class="more-text">    
+Converts messy marketing inputs such as ad copy, landing pages, and audience data 
+into a machine-readable acquisition journey for accurate simulation.    
+</p>    
+
+<button class="learn-btn">Learn More</button>    
+
+</div>    
+
+
+<!-- CARD 2 -->    
+<div class="platform-card">    
+
+<img src="si6.png" class="platform-img">    
+
+<h3>Pre-Spend Simulation Engine</h3>    
+
+<p class="short-text">    
+Test before you invest.    
+</p>    
+
+<p class="more-text">    
+Simulates thousands of customer journeys using AI to identify friction points, 
+predict outcomes, and prevent wasted marketing spend before launch.    
+</p>    
+
+<button class="learn-btn">Learn More</button>    
+
+</div>    
+
+
+<!-- CARD 3 -->    
+<div class="platform-card">    
+
+<img src="si7.png" class="platform-img">    
+
+<h3>Multi-Agent Evaluation (MACE)</h3>    
+
+<p class="short-text">    
+AI experts analysing your funnel.    
+</p>    
+
+<p class="more-text">    
+Specialised AI agents analyse audience, creative, and economics to generate 
+a unified SignalScore and actionable recommendations.    
+</p>    
+
+<button class="learn-btn">Learn More</button>    
+
+</div>    
+
+
+<!-- CARD 4 -->    
+<div class="platform-card">    
+
+<img src="si8.png" class="platform-img">    
+
+<h3>SignalScore Prediction</h3>    
+
+<p class="short-text">    
+Know what will work.    
+</p>    
+
+<p class="more-text">    
+Provides predictive scoring for conversion success and lead quality, helping 
+businesses prioritise high-impact strategies before execution.    
+</p>    
+
+<button class="learn-btn">Learn More</button>    
+
+</div>    
+
+
+<!-- CARD 5 -->    
+<div class="platform-card">    
+
+<img src="si9.png" class="platform-img">    
+
+<h3>Scenario Testing</h3>    
+
+<p class="short-text">    
+Explore "what-if" strategies.    
+</p>    
+
+<p class="more-text">    
+Test different budget allocations, channels, and campaign variations to identify 
+the most efficient and profitable path before spending.    
+</p>    
+
+<button class="learn-btn">Learn More</button>    
+
+</div>    
+
+
+<!-- CARD 6 -->    
+<div class="platform-card">    
+
+<img src="si10.png" class="platform-img">    
+
+<h3>Compliance & Data Security</h3>    
+
+<p class="short-text">    
+Built for trust and regulation.    
+</p>    
+
+<p class="more-text">    
+Designed with UK GDPR compliance, anonymised data processing, and secure 
+infrastructure to ensure safe and ethical AI-driven decision making.    
+</p>    
+
+<button class="learn-btn">Learn More</button>    
+
+</div>    
+
+</div>    
+
+</div>    
+
+</section>    
+
+
+<style>    
+
+/* DARK BLUE BACKGROUND */
+.platform-section{    
+padding:120px 8%;    
+background:linear-gradient(135deg,#0B1E3F,#153E8C,#1E3A8A);
+font-family:'Segoe UI',sans-serif;    
+text-align:center;    
+color:white;    
+}    
+
+/* CONTAINER */    
+.platform-container{    
+max-width:1100px;    
+margin:auto;    
+}    
+
+/* TITLE */    
+.platform-title{    
+font-size:40px;    
+margin-bottom:10px;    
+color:#ffffff;
+}    
+
+/* DIVIDER */    
+.platform-divider{    
+width:80px;
+height:3px;
+margin:12px auto 25px;
+background:#ffffff;
+}    
+
+/* SUB */    
+.platform-sub{    
+max-width:650px;    
+margin:auto;
+margin-bottom:60px;
+color:#dbeafe;
+}    
+
+/* GRID */    
+.platform-grid{    
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}    
+
+/* CARD */
+.platform-card{    
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.15);
+color:white;
+padding:25px;
+border-radius:12px;
+transition:0.3s;
+text-align:left;
+backdrop-filter:blur(10px);
+}    
+
+.platform-card:hover{    
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}    
+
+/* IMAGE */
+.platform-img{    
+width:100%;
+height:160px;
+object-fit:cover;
+border-radius:8px;
+margin-bottom:15px;
+}    
+
+/* TITLE */
+.platform-card h3{    
+margin-bottom:8px;
+color:#ffffff;
+}    
+
+/* TEXT */
+.short-text{    
+color:#c7d2fe;
+margin-bottom:10px;
+}    
+
+.more-text{    
+display:none;
+font-size:14px;
+color:#e0e7ff;
+line-height:1.6;
+margin-bottom:10px;
+}    
+
+/* BUTTON */
+.learn-btn{    
+background:#ffffff;
+color:#153E8C;
+border:none;
+padding:11px 20px;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+font-size:14px;
+}    
+
+.learn-btn:hover{
+background:#e0e7ff;
+}
+
+@media(max-width:900px){
+
+/* SECTION SPACING */
+.platform-section{
+padding:65px 18px;
+}
+
+/* TITLE */
+.platform-title{
+font-size:26px;
+line-height:1.3;
+letter-spacing:-0.2px;
+}
+
+/* DIVIDER */
+.platform-divider{
+width:45px;
+height:2px;
+margin:10px auto 16px;
+}
+
+/* SUBTEXT */
+.platform-sub{
+font-size:14.5px;
+line-height:1.7;
+margin-bottom:30px;
+padding:0 8px;
+}
+
+/* GRID */
+.platform-grid{
+grid-template-columns:1fr;
+gap:18px;
+}
+
+/* CARD */
+.platform-card{
+padding:18px;
+border-radius:10px;
+max-width:300px;
+margin:auto;
+text-align:center;
+}
+
+/* IMAGE */
+.platform-img{
+height:130px;
+margin-bottom:12px;
+}
+
+/* TITLE */
+.platform-card h3{
+font-size:15px;
+margin-bottom:6px;
+}
+
+/* TEXT */
+.short-text{
+font-size:13.5px;
+}
+
+.more-text{
+font-size:13.5px;
+line-height:1.6;
+}
+
+/* BUTTON */
+.learn-btn{
+width:100%;
+max-width:200px;
+padding:11px;
+font-size:13.5px;
+margin-top:8px;
+}
+
+/* ALIGNMENT FIX */
+.platform-card{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* REMOVE HOVER EFFECTS (BETTER MOBILE UX) */
+.platform-card:hover{
+transform:none;
+box-shadow:none;
+}
+
+}
+@media(max-width:900px){
+
+/* SECTION */
+.platform-section{
+padding:70px 20px;
+}
+
+/* GRID */
+.platform-grid{
+grid-template-columns:1fr;
+gap:18px;
+}
+
+/* CARD → FULL WIDTH */
+.platform-card{
+width:100%;
+padding:18px;
+border-radius:10px;
+text-align:left;   /* 👈 important: not center */
+}
+
+/* IMAGE */
+.platform-img{
+height:140px;
+}
+
+/* TEXT ALIGN NATURAL */
+.platform-card h3{
+font-size:16px;
+}
+
+.short-text,
+.more-text{
+font-size:14px;
+}
+
+/* BUTTON */
+.learn-btn{
+width:100%;        /* full width button */
+max-width:none;    /* remove restriction */
+}
+
+/* REMOVE HOVER EFFECT */
+.platform-card:hover{
+transform:none;
+box-shadow:none;
+}
+
+}
+</style>    
+
+
+<script>    
+
+document.querySelectorAll(".learn-btn").forEach(btn => {    
+
+btn.addEventListener("click", function(){    
+
+const card = this.parentElement;    
+const more = card.querySelector(".more-text");    
+
+if(more.style.display === "block"){    
+more.style.display = "none";    
+this.innerText = "Learn More";    
+}else{    
+more.style.display = "block";    
+this.innerText = "Show Less";    
+}    
+
+});    
+
+});    
+
+</script>    
+
+<!-- PLATFORM SECTION END -->
+<!-- PRICING SECTION START -->
+
+<section class="pricing-section" id="pricing">
+
+<div class="pricing-container">
+
+<h2 class="pricing-title">SignalTwin Pricing</h2>
+
+<div class="title-divider"></div>
+
+<p class="pricing-sub">
+Flexible SaaS pricing designed for UK SMEs and agencies. 
+SignalTwin replaces expensive £10,000+ consultancy audits with a scalable 
+simulate-then-spend platform for smarter marketing decisions.
+</p>
+
+<div class="pricing-grid">
+
+<!-- STARTER -->
+
+<div class="pricing-card">
+
+<h3>Starter</h3>
+
+<p class="price">£199 / month</p>
+
+<div class="card-divider"></div>
+
+<ul>
+<li><span class="tick">✓</span> Pre-Spend Simulation Reports</li>
+<li><span class="tick">✓</span> Funnel Twin Builder</li>
+<li><span class="tick">✓</span> Basic SignalScore Insights</li>
+<li><span class="tick">✓</span> Campaign Risk Detection</li>
+<li><span class="tick">✓</span> SME Use (Single Business)</li>
+</ul>
+
+<button onclick="selectPlan('Starter')">Get Started</button>
+
+</div>
+
+
+<!-- PROFESSIONAL -->
+
+<div class="pricing-card pro-card">
+
+<div class="pro-badge">Most Popular</div>
+
+<h3>Professional</h3>
+
+<p class="price">£499 / month</p>
+
+<div class="card-divider"></div>
+
+<ul>
+<li><span class="tick">✓</span> Multi-Agent Campaign Analysis (MACE)</li>
+<li><span class="tick">✓</span> Advanced SignalScore Prediction</li>
+<li><span class="tick">✓</span> Lead Intent & Quality Forecasting</li>
+<li><span class="tick">✓</span> Counterfactual Scenario Testing</li>
+<li><span class="tick">✓</span> Cross-Channel Budget Simulation</li>
+</ul>
+
+<button onclick="selectPlan('Professional')">Choose Plan</button>
+
+</div>
+
+
+<!-- ENTERPRISE -->
+
+<div class="pricing-card">
+
+<h3>Enterprise</h3>
+
+<p class="price">£1000+ / month</p>
+
+<div class="card-divider"></div>
+
+<ul>
+<li><span class="tick">✓</span> Full Platform Access</li>
+<li><span class="tick">✓</span> API & CRM Integrations</li>
+<li><span class="tick">✓</span> Agency White Label Reports</li>
+<li><span class="tick">✓</span> Sector Specific Modules</li>
+<li><span class="tick">✓</span> Dedicated Support & SLA</li>
+</ul>
+
+<button onclick="selectPlan('Enterprise')">Contact Sales</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<style>
+
+/* SECTION */
+.pricing-section{
+padding:120px 8%;
+background:#ffffff;
+font-family:'Segoe UI',sans-serif;
+text-align:center;
+}
+
+/* TITLE */
+.pricing-title{
+font-size:40px;
+color:#0B1E3F;
+}
+
+/* DIVIDER */
+.title-divider{
+width:80px;
+height:3px;
+margin:12px auto 25px;
+background:#153E8C;
+}
+
+/* SUB */
+.pricing-sub{
+color:#333;
+margin-bottom:60px;
+max-width:650px;
+margin-left:auto;
+margin-right:auto;
+}
+
+/* GRID */
+.pricing-grid{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+/* CARD */
+.pricing-card{
+background:#ffffff;
+padding:40px 30px;
+border-radius:12px;
+border:1px solid #eee;
+transition:0.3s;
+position:relative;
+}
+
+.pricing-card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* POPULAR */
+.pro-card{
+border:2px solid #153E8C;
+transform:scale(1.05);
+}
+
+.pro-badge{
+position:absolute;
+top:-12px;
+left:50%;
+transform:translateX(-50%);
+background:#153E8C;
+color:white;
+font-size:12px;
+padding:6px 18px;
+border-radius:20px;
+}
+
+/* PRICE */
+.price{
+margin:15px 0;
+font-size:24px;
+font-weight:700;
+color:#153E8C;
+}
+
+/* DIVIDER */
+.card-divider{
+height:3px;
+width:50px;
+margin:15px auto 20px;
+background:#153E8C;
+}
+
+/* LIST */
+.pricing-card ul{
+list-style:none;
+padding:0;
+margin-bottom:25px;
+text-align:left;
+}
+
+.pricing-card li{
+margin:10px 0;
+color:#444;
+font-size:14px;
+}
+
+/* TICK */
+.tick{
+color:#153E8C;
+font-weight:bold;
+margin-right:8px;
+}
+
+/* BUTTON */
+.pricing-card button{
+padding:12px 24px;
+border:none;
+background:#153E8C;
+color:white;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.pricing-card button:hover{
+background:#0B1E3F;
+transform:translateY(-2px);
+}
+
+@media(max-width:900px){
+
+/* SECTION SPACING */
+.pricing-section{
+padding:70px 20px;
+}
+
+/* TITLE */
+.pricing-title{
+font-size:28px;
+line-height:1.3;
+letter-spacing:-0.3px;
+}
+
+/* DIVIDER */
+.title-divider{
+width:50px;
+height:2px;
+margin:10px auto 18px;
+}
+
+/* SUBTEXT */
+.pricing-sub{
+font-size:15px;
+line-height:1.7;
+margin-bottom:35px;
+padding:0 10px;
+}
+
+/* GRID → SINGLE COLUMN */
+.pricing-grid{
+grid-template-columns:1fr;
+gap:20px;
+}
+
+/* CARD */
+.pricing-card{
+padding:25px 20px;
+border-radius:10px;
+max-width:320px;
+margin:auto;
+text-align:center;
+}
+
+/* REMOVE SCALE EFFECT */
+.pro-card{
+transform:none;
+}
+
+/* BADGE FIX */
+.pro-badge{
+top:-10px;
+font-size:11px;
+padding:5px 14px;
+}
+
+/* PRICE */
+.price{
+font-size:22px;
+margin:12px 0;
+}
+
+/* DIVIDER */
+.card-divider{
+width:40px;
+height:2px;
+margin:12px auto 18px;
+}
+
+/* LIST */
+.pricing-card ul{
+text-align:left;
+padding:0 5px;
+}
+
+.pricing-card li{
+font-size:14px;
+line-height:1.6;
+}
+
+/* BUTTON */
+.pricing-card button{
+width:100%;
+max-width:220px;
+margin:auto;
+padding:13px;
+font-size:14px;
+}
+
+/* CENTER ALIGN FIX */
+.pricing-card{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* REMOVE EXTRA WIDTH ISSUES */
+.pricing-container{
+width:100%;
+}
+
+}
+
+</style>
+
+
+<script>
+
+function selectPlan(plan){
+alert("Selected plan: " + plan);
+document.getElementById("contact").scrollIntoView({
+behavior:"smooth"
+});
+}
+
+</script>
+
+<!-- PRICING SECTION END -->
+<!-- SIGNALTWIN FAQ SECTION (PDF STYLE) -->
+
+<section class="faq-section" id="faq">
+
+<div class="faq-container">
+
+<h2 class="faq-title">Frequently Asked Questions</h2>
+<div class="faq-divider"></div>
+
+<p class="faq-sub">
+Clear answers about how SignalTwin works, what makes it different, and how it helps 
+businesses reduce risk before spending on marketing.
+</p>
+
+<div class="faq-list">
+
+<!-- FAQ 1 -->
+<div class="faq-item">
+<div class="faq-question">
+<span>What is SignalTwin?</span>
+<button class="toggle">+</button>
+</div>
+<div class="faq-answer">
+<p>
+SignalTwin is an AI-powered digital twin platform that simulates customer journeys 
+before marketing campaigns are launched. It allows businesses to test strategies 
+in a virtual environment and identify risks before spending real budget.
+</p>
+</div>
+</div>
+
+<!-- FAQ 2 -->
+<div class="faq-item">
+<div class="faq-question">
+<span>How is SignalTwin different from traditional analytics tools?</span>
+<button class="toggle">+</button>
+</div>
+<div class="faq-answer">
+<p>
+Traditional tools analyse performance after campaigns are launched. SignalTwin 
+uses a "simulate-then-spend" approach, predicting outcomes before any money is spent, 
+helping businesses avoid costly mistakes.
+</p>
+</div>
+</div>
+
+<!-- FAQ 3 -->
+<div class="faq-item">
+<div class="faq-question">
+<span>How does SignalTwin simulation work?</span>
+<button class="toggle">+</button>
+</div>
+<div class="faq-answer">
+<p>
+The platform creates a digital twin of the marketing funnel and runs thousands of 
+simulated customer interactions using AI models. It identifies friction points, 
+low-intent traffic, and potential conversion issues before launch.
+</p>
+</div>
+</div>
+
+<!-- FAQ 4 -->
+<div class="faq-item">
+<div class="faq-question">
+<span>What is the MACE system in SignalTwin?</span>
+<button class="toggle">+</button>
+</div>
+<div class="faq-answer">
+<p>
+MACE (Multi-Agent Campaign Evaluation) is a system of AI agents that analyse 
+different aspects of a campaign such as audience, creative, and performance. 
+These agents combine insights into a single clear score and recommendation.
+</p>
+</div>
+</div>
+
+<!-- FAQ 5 -->
+<div class="faq-item">
+<div class="faq-question">
+<span>Who is SignalTwin designed for?</span>
+<button class="toggle">+</button>
+</div>
+<div class="faq-answer">
+<p>
+SignalTwin is designed for SMEs, marketing teams, and agencies that want to 
+reduce wasted spend and make better decisions without needing advanced data science skills.
+</p>
+</div>
+</div>
+
+<!-- FAQ 6 -->
+<div class="faq-item">
+<div class="faq-question">
+<span>What business value does SignalTwin provide?</span>
+<button class="toggle">+</button>
+</div>
+<div class="faq-answer">
+<p>
+SignalTwin helps businesses reduce acquisition waste, improve conversion rates, 
+and make confident decisions. It transforms marketing from a risky experiment 
+into a predictable and efficient process.
+</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<style>
+
+/* 🌌 PDF STYLE BACKGROUND */
+.faq-section{
+padding:110px 8%;
+background:linear-gradient(135deg,#0B1E3F,#153E8C);
+font-family:'Segoe UI',sans-serif;
+}
+
+/* CONTAINER */
+.faq-container{
+max-width:850px;
+margin:auto;
+}
+
+/* TITLE */
+.faq-title{
+text-align:center;
+color:white;
+font-size:34px;
+}
+
+/* SUBTEXT */
+.faq-sub{
+text-align:center;
+color:#cfd8ff;
+margin:20px auto 40px;
+max-width:600px;
+line-height:1.6;
+}
+
+/* DIVIDER */
+.faq-divider{
+width:60px;
+height:2px;
+background:#4F8CFF;
+margin:12px auto 30px;
+}
+
+/* LIST */
+.faq-list{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+
+/* CLEAN CARD (PDF STYLE – NO GLASS) */
+.faq-item{
+border-bottom:1px solid rgba(255,255,255,0.15);
+padding:16px 0;
+}
+
+/* QUESTION */
+.faq-question{
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer;
+color:white;
+font-size:15px;
+font-weight:600;
+}
+
+/* BUTTON */
+.toggle{
+background:none;
+border:none;
+color:#4F8CFF;
+font-size:18px;
+cursor:pointer;
+}
+
+/* ANSWER */
+.faq-answer{
+display:none;
+margin-top:10px;
+}
+
+.faq-answer p{
+color:#d6dcff;
+font-size:14px;
+line-height:1.7;
+}
+
+@media(max-width:900px){
+
+/* SECTION SPACING */
+.faq-section{
+padding:80px 20px 60px;
+}
+
+/* CONTAINER WIDTH CONTROL */
+.faq-container{
+max-width:100%;
+}
+
+/* TITLE */
+.faq-title{
+font-size:26px;
+line-height:1.3;
+}
+
+/* SUBTEXT */
+.faq-sub{
+font-size:14px;
+line-height:1.7;
+margin-bottom:35px;
+padding:0 5px;
+}
+
+/* DIVIDER (SMALL + CLEAN) */
+.faq-divider{
+width:45px;
+height:2px;
+margin:10px auto 25px;
+}
+
+/* LIST SPACING */
+.faq-list{
+gap:14px;
+}
+
+/* FAQ ITEM */
+.faq-item{
+padding:14px 0;
+}
+
+/* QUESTION ROW */
+.faq-question{
+font-size:14px;
+line-height:1.4;
+gap:10px;
+}
+
+/* BUTTON (TOUCH FRIENDLY) */
+.toggle{
+font-size:18px;
+min-width:32px;
+height:32px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* ANSWER */
+.faq-answer{
+margin-top:10px;
+}
+
+.faq-answer p{
+font-size:14px;
+line-height:1.8;
+}
+
+/* 🔥 TOUCH IMPROVEMENT */
+.faq-question{
+padding:6px 0;
+}
+
+/* REMOVE HOVER EFFECTS (MOBILE UX FIX) */
+.faq-item:hover{
+transform:none;
+box-shadow:none;
+}
+
+}
+
+</style>
+
+
+<script>
+
+/* CLEAN TOGGLE SYSTEM */
+document.querySelectorAll(".faq-question").forEach(q=>{
+q.addEventListener("click",()=>{
+
+const answer = q.nextElementSibling;
+const btn = q.querySelector(".toggle");
+
+if(answer.style.display === "block"){
+answer.style.display = "none";
+btn.innerHTML = "+";
+}else{
+
+document.querySelectorAll(".faq-answer").forEach(a=>a.style.display="none");
+document.querySelectorAll(".toggle").forEach(b=>b.innerHTML="+");
+
+answer.style.display = "block";
+btn.innerHTML = "−";
+}
+
+});
+});
+
+</script>
+
+<!-- END -->
+<!-- CONTACT SECTION START -->
+
+<section class="contact-section" id="contact">
+
+<div class="contact-container">
+
+<!-- LEFT -->
+
+<div class="contact-left">
+
+<h2>Contact SignalTwin</h2>
+<div class="contact-divider"></div>
+
+<p class="contact-text">
+SignalTwin is an AI-powered Pre-Spend Digital Twin platform that enables UK SMEs 
+to simulate marketing outcomes before committing budget.
+
+Instead of relying on delayed analytics, SignalTwin helps businesses identify risks, 
+reduce acquisition waste, and make confident decisions through predictive simulation.
+
+Reach out to explore how your organisation can move from “spend and learn” 
+to a smarter simulate then spend approach.
+</p>
+
+<!-- INFO BOX -->
+
+<div class="info-box">
+
+<div class="contact-item">
+<h3>Email</h3>
+<p>signaltwinuk@outlook.com</p>
+</div>
+
+<div class="contact-item">
+<h3>Phone</h3>
+<p>+44 7818922857</p>
+</div>
+
+<div class="contact-item">
+<h3>Location</h3>
+<p>London, United Kingdom</p>
+</div>
+
+<div class="contact-item">
+<h3>Founder</h3>
+<p>Hitesh Hans Founder & CEO</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FORM -->
+
+<form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+
+<input type="hidden" name="access_key" value="e24d1735-8ee5-4648-9a5c-43f2b4d49fcd">
+<input type="hidden" name="subject" value="New Contact - SignalTwin">
+<input type="hidden" name="from_name" value="SignalTwin Website">
+
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<input type="tel" name="phone" placeholder="Phone Number">
+<textarea name="message" rows="4" placeholder="Tell us about your use case..." required></textarea>
+
+<button type="submit">Request Demo</button>
+
+<p class="note">We typically respond within 24 hours.</p>
+
+<p id="form-status"></p>
+
+</form>
+
+</div>
+
+</section>
+
+
+<style>
+
+/* SECTION */
+.contact-section{
+padding:120px 8%;
+background:#ffffff;
+font-family:'Segoe UI',sans-serif;
+}
+
+/* CONTAINER */
+.contact-container{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:70px;
+align-items:center;
+}
+
+/* LEFT */
+.contact-left h2{
+font-size:40px;
+color:#0B1E3F;
+}
+
+/* DIVIDER */
+.contact-divider{
+width:60px;
+height:3px;
+margin:12px 0 20px;
+background:#153E8C;
+}
+
+/* TEXT */
+.contact-text{
+color:#333;
+line-height:1.8;
+margin-bottom:35px;
+max-width:500px;
+}
+
+/* INFO BOX */
+.info-box{
+background:#f4f7ff;
+border-left:4px solid #153E8C;
+padding:25px;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+/* ITEMS */
+.contact-item h3{
+font-size:14px;
+color:#153E8C;
+}
+
+.contact-item p{
+font-size:14px;
+color:#111;
+}
+
+/* FORM */
+.contact-form{
+background:#ffffff;
+padding:40px;
+border-radius:12px;
+border:1px solid #eee;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+/* INPUT */
+.contact-form input,
+.contact-form textarea{
+padding:14px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+outline:none;
+}
+
+/* FOCUS */
+.contact-form input:focus,
+.contact-form textarea:focus{
+border-color:#153E8C;
+box-shadow:0 0 0 2px rgba(21,62,140,0.15);
+}
+
+/* BUTTON */
+.contact-form button{
+margin-top:10px;
+background:#153E8C;
+color:white;
+border:none;
+padding:14px;
+font-weight:600;
+cursor:pointer;
+border-radius:6px;
+transition:0.3s;
+}
+
+.contact-form button:hover{
+background:#0B1E3F;
+transform:translateY(-2px);
+}
+
+/* NOTE */
+.note{
+font-size:12px;
+color:#153E8C;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+.contact-section{
+padding:80px 6%;
+text-align:center;
+}
+
+.contact-container{
+grid-template-columns:1fr;
+gap:40px;
+}
+
+.contact-divider{
+margin:15px auto 25px;
+}
+
+.contact-text{
+margin:auto;
+}
+
+.info-box{
+margin:auto;
+max-width:320px;
+text-align:left;
+}
+
+.contact-form{
+padding:30px;
+}
+
+}
+
+</style>
+
+
+<script>
+
+const form = document.querySelector(".contact-form");
+const status = document.getElementById("form-status");
+
+form.addEventListener("submit", async function(e) {
+e.preventDefault();
+
+const data = new FormData(form);
+
+const response = await fetch(form.action, {
+method: "POST",
+body: data
+});
+
+if (response.ok) {
+status.innerHTML = "✅ Message sent successfully!";
+status.style.color = "green";
+form.reset();
+} else {
+status.innerHTML = "❌ Something went wrong. Try again.";
+status.style.color = "red";
+}
+
+});
+
+</script>
+
+<!-- CONTACT SECTION END -->
+<!-- SIGNALTWIN FOOTER (PDF STYLE) -->
+
+<style>
+
+/* 🎯 PDF STYLE COLORS */
+.footer{
+background:linear-gradient(135deg,#0B1E3F,#153E8C);
+color:white;
+padding:80px 8% 30px;
+font-family:'Segoe UI',sans-serif;
+}
+
+/* CONTAINER */
+.footer-container{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:1.5fr 1fr 1fr;
+gap:60px;
+}
+
+/* LOGO / TITLE */
+.footer-left h3{
+font-size:28px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+/* DIVIDER */
+.footer-divider{
+width:60px;
+height:3px;
+background:#4F8CFF;
+margin:12px 0 20px;
+}
+
+/* TEXT */
+.footer-left p{
+color:#d6dcff;
+line-height:1.7;
+font-size:14px;
+max-width:420px;
+}
+
+/* LINKS */
+.footer-links h4{
+font-size:16px;
+margin-bottom:10px;
+}
+
+.footer-links a{
+display:block;
+text-decoration:none;
+color:#d6dcff;
+margin-bottom:10px;
+font-size:14px;
+transition:0.3s;
+}
+
+.footer-links a:hover{
+color:white;
+transform:translateX(4px);
+}
+
+/* BOTTOM */
+.footer-bottom{
+margin-top:50px;
+border-top:1px solid rgba(255,255,255,0.2);
+padding-top:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:13px;
+color:#cfd8ff;
+}
+
+/* TOP BUTTON */
+.top-btn{
+background:#4F8CFF;
+border:none;
+color:white;
+width:40px;
+height:40px;
+border-radius:50%;
+cursor:pointer;
+transition:0.3s;
+}
+
+.top-btn:hover{
+transform:translateY(-4px);
+}
+/* CENTER ALIGN ALL HEADINGS */
+.footer-left,
+.footer-links{
+display:flex;
+flex-direction:column;
+align-items:center;   /* 🔥 CENTER EVERYTHING */
+}
+
+/* HEADING */
+.footer-left h3,
+.footer-links h4{
+text-align:center;
+}
+
+/* PERFECT CENTER DIVIDER */
+.footer-divider{
+width:60px;
+height:3px;
+background:#4F8CFF;
+margin:12px auto 20px;   /* 🔥 THIS IS THE KEY FIX */
+border-radius:2px;
+}
+@media(max-width:900px){
+
+/* SECTION SPACING */
+.footer{
+padding:70px 20px 30px;
+}
+
+/* GRID → SINGLE COLUMN WITH GAP */
+.footer-container{
+grid-template-columns:1fr;
+gap:40px;
+justify-items:center;
+}
+
+/* LEFT BLOCK */
+.footer-left{
+max-width:320px;
+text-align:center;
+}
+
+/* TEXT FIX */
+.footer-left p{
+margin:auto;
+line-height:1.8;
+font-size:14px;
+}
+
+/* LINKS BLOCK (IMPORTANT UPGRADE) */
+.footer-links{
+width:100%;
+max-width:260px;
+align-items:center;
+text-align:center;
+}
+
+/* HEADINGS */
+.footer-links h4{
+font-size:15px;
+letter-spacing:0.5px;
+}
+
+/* LINKS STYLE (MORE PREMIUM TOUCH) */
+.footer-links a{
+font-size:14px;
+padding:6px 0;
+}
+
+.footer-links a:hover{
+transform:none; /* remove shift for mobile */
+}
+
+/* DIVIDER PERFECT CENTER */
+.footer-divider{
+margin:10px auto 18px;
+width:45px;
+height:2px;
+}
+
+/* BOTTOM SECTION */
+.footer-bottom{
+flex-direction:column;
+gap:12px;
+text-align:center;
+padding-top:25px;
+}
+
+/* BUTTON CENTER + CLEAN */
+.top-btn{
+margin-top:6px;
+width:38px;
+height:38px;
+}
+
+}
+
+</style>
+
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<!-- LEFT -->
+<div class="footer-left">
+
+<h3>SignalTwin</h3>
+<div class="footer-divider"></div>
+
+<p>
+SignalTwin is an AI-powered digital twin platform that enables businesses to simulate 
+customer journeys and predict outcomes before spending on campaigns.  
+
+It transforms traditional marketing into a predictive system, helping organisations 
+reduce risk, optimise decisions, and improve performance through pre-spend intelligence.
+</p>
+
+</div>
+
+
+<!-- CENTER -->
+<div class="footer-links">
+
+<h4>Platform</h4>
+<div class="footer-divider"></div>
+
+<a href="#home">Home</a>
+<a href="#platform">Platform</a>
+<a href="#process">How It Works</a>
+<a href="#pricing">Pricing</a>
+
+</div>
+
+
+<!-- RIGHT -->
+<div class="footer-links">
+
+<h4>Company</h4>
+<div class="footer-divider"></div>
+
+<a href="#about">About</a>
+<a href="#faq">FAQ</a>
+<a href="#contact">Contact</a>
+
+</div>
+
+</div>
+
+
+<!-- BOTTOM -->
+<div class="footer-bottom">
+
+<p>© 2026 SignalTwin. All rights reserved.</p>
+
+<button class="top-btn" onclick="scrollToTop()">↑</button>
+
+</div>
+
+</footer>
+
+
+<script>
+function scrollToTop(){
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+}
+</script>
+
+<!-- END -->
+
+</body>
+</html>
