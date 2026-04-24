@@ -375,6 +375,7 @@ body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .demo-topbar {
@@ -521,6 +522,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow: visible;
 }
 
 .chart-card-header {
@@ -2208,7 +2210,7 @@ section {
             <div class="chart-card-header">
               <div class="chart-card-title">MACE Agent Radar — Campaign Health</div>
             </div>
-            <canvas id="maceRadarChart" height="200"></canvas>
+            <canvas id="maceRadarChart" style="width:100%;min-height:200px;display:block;"></canvas>
           </div>
 
           <!-- AI Recommendations -->
@@ -2285,7 +2287,7 @@ section {
                 <div class="legend-item"><div class="legend-dot" style="background:#F87171"></div>Low</div>
               </div>
             </div>
-            <canvas id="forecastChart" height="180"></canvas>
+            <canvas id="forecastChart" style="width:100%;min-height:160px;display:block;"></canvas>
           </div>
 
           <!-- Budget scenarios -->
@@ -3783,11 +3785,11 @@ function switchPanel(name, btn) {
   const panel = document.getElementById('panel-' + name);
   if (panel) panel.classList.add('active');
   document.getElementById('demoPanelTitle').innerHTML = panelTitles[name] || name;
-  // Init charts
-  if (name === 'analytics')   setTimeout(drawAnalyticsChart, 100);
-  if (name === 'reports')     setTimeout(drawReportsChart, 100);
-  if (name === 'aiinsights')  setTimeout(drawMaceRadar, 100);
-  if (name === 'forecast')    setTimeout(drawForecastChart, 100);
+  // Init charts — always reset done-flags so charts redraw with correct dimensions
+  if (name === 'analytics')  { setTimeout(drawAnalyticsChart, 100); }
+  if (name === 'reports')    { setTimeout(drawReportsChart, 100); }
+  if (name === 'aiinsights') { maceDone=false; setTimeout(drawMaceRadar, 120); }
+  if (name === 'forecast')   { fcDone=false;   setTimeout(drawForecastChart, 120); }
 }
 
 /* ========== FUNNEL ANIMATION ========== */
@@ -4224,51 +4226,173 @@ function initAboutRadar() {
   ctx.fillStyle='#F87171';ctx.fillRect(cx+14,H-14,10,8);ctx.fillText('Industry Average',cx+28,H-7);
 }
 
-/* ========== DEMO: MACE RADAR ========== */
+/* ========== DEMO: MACE RADAR CHART ========== */
 let maceDone=false;
 function drawMaceRadar(){
+  const c=document.getElementById('maceRadarChart');
+  if(!c)return;
+  // Wait until panel is visible and has real width
+  const realW = c.parentElement ? c.parentElement.offsetWidth : 0;
+  if(realW < 10){ setTimeout(drawMaceRadar, 120); return; }
   if(maceDone)return; maceDone=true;
-  const c=document.getElementById('maceRadarChart'); if(!c)return;
-  const ctx=c.getContext('2d'); const dpr=window.devicePixelRatio||2;
-  c.width=c.offsetWidth*dpr; c.height=200*dpr; ctx.scale(dpr,dpr);
-  const W=c.offsetWidth,H=200;
+  const ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=realW, H=Math.min(W, 260);
+  c.width=W*dpr; c.height=H*dpr; c.style.width=W+'px'; c.style.height=H+'px';
+  ctx.scale(dpr,dpr);
   const lb=['Audience','Creative','Economic','Risk','Compliance','Speed'];
   const sc=[91,78,84,62,88,90];
-  const cx=W/2,cy=H/2,R=Math.min(W,H)*0.32,n=6;
-  const a=i=>(Math.PI*2/n)*i-Math.PI/2;
-  [33,66,100].forEach(p=>{const r=R*p/100;ctx.beginPath();for(let i=0;i<n;i++){const x=cx+r*Math.cos(a(i)),y=cy+r*Math.sin(a(i));i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.closePath();ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;ctx.stroke();});
-  for(let i=0;i<n;i++){ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+R*Math.cos(a(i)),cy+R*Math.sin(a(i)));ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;ctx.stroke();}
-  ctx.beginPath();sc.forEach((v,i)=>{const r=R*v/100;i?ctx.lineTo(cx+r*Math.cos(a(i)),cy+r*Math.sin(a(i))):ctx.moveTo(cx+r*Math.cos(a(i)),cy+r*Math.sin(a(i)));});
-  ctx.closePath();ctx.fillStyle='rgba(59,130,246,0.2)';ctx.fill();ctx.strokeStyle='#3B82F6';ctx.lineWidth=2;ctx.stroke();
-  sc.forEach((v,i)=>{const r=R*v/100;ctx.beginPath();ctx.arc(cx+r*Math.cos(a(i)),cy+r*Math.sin(a(i)),3.5,0,Math.PI*2);ctx.fillStyle='#60A5FA';ctx.fill();ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.lineWidth=1;ctx.stroke();});
-  ctx.fillStyle='rgba(255,255,255,0.55)';ctx.font='9px DM Mono,monospace';ctx.textAlign='center';
-  lb.forEach((l,i)=>{const r=R+15;ctx.fillText(l,cx+r*Math.cos(a(i)),cy+r*Math.sin(a(i))+3);});
+  const cx=W/2, cy=H/2;
+  // Radius: leave margin for labels — 28% of min dimension
+  const R=Math.min(W,H)*0.28;
+  const n=6;
+  const ang=i=>(Math.PI*2/n)*i-Math.PI/2;
+  // Concentric rings
+  [33,66,100].forEach(p=>{
+    const r=R*p/100;
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const x=cx+r*Math.cos(ang(i)),y=cy+r*Math.sin(ang(i));
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle='rgba(255,255,255,0.07)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+    // Ring value label
+    if(p===100||p===66||p===33){
+      ctx.fillStyle='rgba(255,255,255,0.2)';
+      ctx.font=`${Math.max(7,W*0.018)}px DM Mono,monospace`;
+      ctx.textAlign='center';
+      ctx.fillText(p, cx+4, cy-r+10);
+    }
+  });
+  // Axis lines
+  for(let i=0;i<n;i++){
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+R*Math.cos(ang(i)),cy+R*Math.sin(ang(i)));
+    ctx.strokeStyle='rgba(255,255,255,0.06)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+  }
+  // Score polygon fill
+  ctx.beginPath();
+  sc.forEach((v,i)=>{
+    const r=R*v/100;
+    i?ctx.lineTo(cx+r*Math.cos(ang(i)),cy+r*Math.sin(ang(i))):ctx.moveTo(cx+r*Math.cos(ang(i)),cy+r*Math.sin(ang(i)));
+  });
+  ctx.closePath();
+  ctx.fillStyle='rgba(59,130,246,0.18)';
+  ctx.fill();
+  ctx.strokeStyle='#3B82F6';
+  ctx.lineWidth=2;
+  ctx.stroke();
+  // Score dots + values
+  sc.forEach((v,i)=>{
+    const r=R*v/100;
+    const px=cx+r*Math.cos(ang(i)), py=cy+r*Math.sin(ang(i));
+    ctx.beginPath();
+    ctx.arc(px,py,4,0,Math.PI*2);
+    ctx.fillStyle='#60A5FA';
+    ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,0.3)';
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+  });
+  // Labels — adaptive font size, positioned further out
+  const labelR = R + Math.max(14, W*0.04);
+  const fontSize = Math.max(8, Math.min(11, W*0.022));
+  ctx.fillStyle='rgba(255,255,255,0.65)';
+  ctx.font=`bold ${fontSize}px Outfit,sans-serif`;
+  lb.forEach((l,i)=>{
+    const lx=cx+labelR*Math.cos(ang(i));
+    const ly=cy+labelR*Math.sin(ang(i));
+    // Align based on position
+    ctx.textAlign = lx < cx-4 ? 'right' : lx > cx+4 ? 'left' : 'center';
+    ctx.fillText(l, lx, ly+4);
+    // Score value next to label
+    ctx.fillStyle='rgba(96,165,250,0.9)';
+    ctx.font=`bold ${Math.max(7,fontSize-1)}px DM Mono,monospace`;
+    ctx.fillText(sc[i], lx, ly+4+fontSize+1);
+    ctx.fillStyle='rgba(255,255,255,0.65)';
+    ctx.font=`bold ${fontSize}px Outfit,sans-serif`;
+  });
 }
 
 /* ========== DEMO: FORECAST CHART ========== */
 let fcDone=false;
 function drawForecastChart(){
+  const c=document.getElementById('forecastChart');
+  if(!c)return;
+  // Wait until panel is visible and has real width
+  const realW = c.parentElement ? c.parentElement.offsetWidth : 0;
+  if(realW < 10){ setTimeout(drawForecastChart, 120); return; }
   if(fcDone)return; fcDone=true;
-  const c=document.getElementById('forecastChart'); if(!c)return;
-  const ctx=c.getContext('2d'); const dpr=window.devicePixelRatio||2;
-  c.width=c.offsetWidth*dpr; c.height=180*dpr; ctx.scale(dpr,dpr);
-  const W=c.offsetWidth,H=180;
+  const ctx=c.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  // Adaptive height: taller on mobile so labels don't crowd
+  const H=Math.max(160, Math.min(200, realW*0.45));
+  c.width=realW*dpr; c.height=H*dpr;
+  c.style.width=realW+'px'; c.style.height=H+'px';
+  ctx.scale(dpr,dpr);
+  const W=realW;
   const xs=['Now','Wk2','Wk4','Wk6','Wk8','Wk10','Wk12'];
   const opt=[84,94,108,124,143,162,184];
   const bas=[84,88,96,106,117,130,145];
   const low=[84,84,89,95,102,109,118];
-  const padL=42,padR=56,padT=14,padB=28,cW=W-padL-padR,cH=H-padT-padB,maxV=195,minV=78,rng=maxV-minV;
-  const tx=i=>padL+(cW/(xs.length-1))*i, ty=v=>padT+cH-((v-minV)/rng)*cH;
-  // Grid
-  [80,100,120,140,160,180].forEach(v=>{const y=ty(v);ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(padL+cW,y);ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='8px DM Mono,monospace';ctx.textAlign='right';ctx.fillText('£'+v+'K',padL-4,y+3);});
-  // Confidence band
-  ctx.beginPath();opt.forEach((v,i)=>i?ctx.lineTo(tx(i),ty(v)):ctx.moveTo(tx(i),ty(v)));low.slice().reverse().forEach((v,i)=>ctx.lineTo(tx(xs.length-1-i),ty(v)));ctx.closePath();ctx.fillStyle='rgba(59,130,246,0.07)';ctx.fill();
-  // Lines
-  [[opt,'#34D399',false],[bas,'#60A5FA',false],[low,'#F87171',true]].forEach(([d,col,dash])=>{
-    ctx.beginPath();d.forEach((v,i)=>i?ctx.lineTo(tx(i),ty(v)):ctx.moveTo(tx(i),ty(v)));ctx.strokeStyle=col;ctx.lineWidth=dash?1.5:2.5;ctx.setLineDash(dash?[5,3]:[]);ctx.stroke();ctx.setLineDash([]);
-    const lv=d[d.length-1];ctx.fillStyle=col;ctx.font='bold 9px DM Mono,monospace';ctx.textAlign='left';ctx.fillText('£'+lv+'K',tx(xs.length-1)+4,ty(lv)+3);
+  // Adaptive padding — more right padding only if room, else shrink label
+  const isMobile = W < 440;
+  const padL=isMobile?34:42, padR=isMobile?40:52, padT=14, padB=isMobile?24:28;
+  const cW=W-padL-padR, cH=H-padT-padB;
+  const maxV=195, minV=78, rng=maxV-minV;
+  const tx=i=>padL+(cW/(xs.length-1))*i;
+  const ty=v=>padT+cH-((v-minV)/rng)*cH;
+  const fontSize=isMobile?7:8;
+  // Grid lines + Y labels
+  [80,100,120,140,160,180].forEach(v=>{
+    if(v<minV||v>maxV)return;
+    const y=ty(v);
+    ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(padL+cW,y);
+    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.35)';
+    ctx.font=`${fontSize}px DM Mono,monospace`;
+    ctx.textAlign='right';
+    ctx.fillText('£'+v+'K',padL-3,y+3);
   });
-  ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='8px DM Mono,monospace';ctx.textAlign='center';xs.forEach((x,i)=>ctx.fillText(x,tx(i),H-4));
+  // Confidence band
+  ctx.beginPath();
+  opt.forEach((v,i)=>i?ctx.lineTo(tx(i),ty(v)):ctx.moveTo(tx(i),ty(v)));
+  low.slice().reverse().forEach((v,i)=>ctx.lineTo(tx(xs.length-1-i),ty(v)));
+  ctx.closePath();ctx.fillStyle='rgba(59,130,246,0.07)';ctx.fill();
+  // Draw each line
+  const lines=[[opt,'#34D399',false,'Best'],[bas,'#60A5FA',false,'Base'],[low,'#F87171',true,'Low']];
+  lines.forEach(([d,col,dash,lbl])=>{
+    ctx.beginPath();
+    d.forEach((v,i)=>i?ctx.lineTo(tx(i),ty(v)):ctx.moveTo(tx(i),ty(v)));
+    ctx.strokeStyle=col;ctx.lineWidth=dash?1.5:2.5;
+    ctx.setLineDash(dash?[5,3]:[]);ctx.stroke();ctx.setLineDash([]);
+    // End-label
+    const lv=d[d.length-1];
+    const ex=tx(xs.length-1);
+    const ey=ty(lv);
+    // Dot at end
+    ctx.beginPath();ctx.arc(ex,ey,3,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
+    // Label: on mobile show compact, on desktop show full
+    ctx.fillStyle=col;
+    ctx.font=`bold ${fontSize}px DM Mono,monospace`;
+    ctx.textAlign='left';
+    const label = isMobile ? lbl : '£'+lv+'K';
+    ctx.fillText(label, ex+4, ey+3);
+  });
+  // X-axis labels — skip alternates on very small screens
+  ctx.fillStyle='rgba(255,255,255,0.35)';
+  ctx.font=`${fontSize}px DM Mono,monospace`;
+  ctx.textAlign='center';
+  xs.forEach((x,i)=>{
+    if(isMobile && i%2!==0 && i!==xs.length-1) return; // skip odd on mobile
+    ctx.fillText(x,tx(i),H-4);
+  });
 }
 
 /* ========== FINANCIALS CHARTS ========== */
@@ -4385,6 +4509,18 @@ function initStratCharts(){
 /* ========== MOBILE CAPS GRID RESPONSIVE — handled by CSS media queries ========== */
 function applyMobileGrids() { /* grids now fully CSS-driven */ }
 window.addEventListener('resize', applyMobileGrids);
+
+// Redraw AI Insights + Forecast charts on window resize (handles orientation change, modal resize)
+let _resizeTimer;
+window.addEventListener('resize', function(){
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(function(){
+    const aiPanel = document.getElementById('panel-aiinsights');
+    const fcPanel = document.getElementById('panel-forecast');
+    if(aiPanel && aiPanel.classList.contains('active')){ maceDone=false; drawMaceRadar(); }
+    if(fcPanel && fcPanel.classList.contains('active'))  { fcDone=false;   drawForecastChart(); }
+  }, 200);
+});
 setTimeout(applyMobileGrids, 100);
 
 /* ========== PRICING SELECT ========== */
